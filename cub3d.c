@@ -6,7 +6,7 @@
 /*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 10:25:25 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/12/14 19:15:41 by abdo             ###   ########.fr       */
+/*   Updated: 2025/12/14 21:42:29 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
 #define ROT_SPEED   0.06
 
 /* ========================== PIXEL ========================== */
+
+static int ft_abs(int x)
+{
+    if (x < 0)
+        return (-x);
+    return (x);
+}
 
 void put_pixel(t_img *img, int x, int y, int color)
 {
@@ -53,10 +60,13 @@ void draw_square(t_img *img, int x, int y, int color)
     }
 }
 
+
+
 void draw_line(t_game *g, int x0, int y0, int x1, int y1, int color)
 {
-    int dx = abs(x1 - x0);
-    int dy = abs(y1 - y0);
+    int dx = ft_abs(x1 - x0);
+    int dy = ft_abs
+    (y1 - y0);
     int sx = (x0 < x1) ? 1 : -1;
     int sy = (y0 < y1) ? 1 : -1;
     int err = dx - dy;
@@ -160,14 +170,55 @@ void draw_player(t_game *g)
     }
 }
 
+void draw_square_sized(t_img *img, int x, int y, int size, int color)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (i < size)
+    {
+        j = 0;
+        while (j < size)
+        {
+            put_pixel(img, x + j, y + i, color);
+            j++;
+        }
+        i++;
+    }
+}
+
 void draw_minimap(t_game *g)
 {
     int y;
     int x;
-    int walls = 0;
-    int floors = 0;
-    int voids = 0;
-
+    int mini_scale = 6;  // Increased to make it even smaller
+    int mini_tile = TILE_SIZE / mini_scale;
+    
+    // Calculate minimap dimensions
+    int map_pixel_w = g->map_w * mini_tile;
+    int map_pixel_h = g->map_h * mini_tile;
+    
+    // Position in bottom-right corner with padding
+    int offset_x = g->win_w - map_pixel_w - 200;  // More to the left
+    int offset_y = g->win_h - map_pixel_h - 20;
+    
+    // Draw minimap background
+    y = 0;
+    while (y < map_pixel_h + 10)
+    {
+        x = 0;
+        while (x < map_pixel_w + 10)
+        {
+            if (offset_x - 5 + x >= 0 && offset_x - 5 + x < g->win_w &&
+                offset_y - 5 + y >= 0 && offset_y - 5 + y < g->win_h)
+                put_pixel(&g->img, offset_x - 5 + x, offset_y - 5 + y, 0x333333);
+            x++;
+        }
+        y++;
+    }
+    
+    // Draw the minimap
     y = 0;
     while (y < g->map_h)
     {
@@ -176,29 +227,25 @@ void draw_minimap(t_game *g)
         {
             while (g->map[y][x])
             {
+                int draw_x = offset_x + (x * mini_tile);
+                int draw_y = offset_y + (y * mini_tile);
+                
                 if (g->map[y][x] == '1')
-                    draw_square(&g->img, x * TILE_SIZE, y * TILE_SIZE, 0x0000FF);
+                    draw_square_sized(&g->img, draw_x, draw_y, mini_tile, 0x4444FF);
                 else if (g->map[y][x] == '0' || g->map[y][x] == 'N' || 
                          g->map[y][x] == 'S' || g->map[y][x] == 'E' || g->map[y][x] == 'W')
-                    draw_square(&g->img, x * TILE_SIZE, y * TILE_SIZE, 0xFFFFFF);
-                else
-                    draw_square(&g->img, x * TILE_SIZE, y * TILE_SIZE, 0x000000);
-                if (g->map[y][x] == '1')
-                    walls++;
-                else if (g->map[y][x] == '0' || g->map[y][x] == 'N' || g->map[y][x] == 'S' || g->map[y][x] == 'E' || g->map[y][x] == 'W')
-                    floors++;
-                else
-                    voids++;
+                    draw_square_sized(&g->img, draw_x, draw_y, mini_tile, 0xCCCCCC);
                 x++;
             }
         }
         y++;
     }
     
-    draw_fov_rays(g);
-    draw_player(g);
-    fprintf(stderr, "[minimap] map_h=%d walls=%d floors=%d voids=%d player_px=%d player_py=%d\n",
-            g->map_h, walls, floors, voids, (int)(g->player.x * TILE_SIZE), (int)(g->player.y * TILE_SIZE));
+    // Draw player as red square on minimap
+    int player_x = offset_x + (int)(g->player.x * mini_tile);
+    int player_y = offset_y + (int)(g->player.y * mini_tile);
+    draw_square_sized(&g->img, player_x - mini_tile/4, player_y - mini_tile/4, 
+                      mini_tile/2, 0xFF0000);
 }
 
 /* ========================== MOVEMENT ========================== */
@@ -431,7 +478,7 @@ int game_loop(t_game *g)
     );
 
     draw_scene(g);
-    // draw_minimap(g);
+    draw_minimap(g);
     mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
     return (0);
 }
