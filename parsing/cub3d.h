@@ -6,7 +6,7 @@
 /*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:29:24 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/12/14 18:41:59 by abdo             ###   ########.fr       */
+/*   Updated: 2025/12/14 22:28:33 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 
 
 #define TILE_SIZE 32
-// #define PLAYER_SIZE 6
+#define PLAYER_SIZE 8
+#define MOVE_SPEED  0.06
+#define ROT_SPEED   0.06
 
 
 #include "mlx.h"
@@ -28,6 +30,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
+#include <math.h>
 
 # include "./get_next_line/get_next_line.h"
 
@@ -91,6 +94,8 @@ typedef struct s_img
     int     bpp;
     int     line_len;
     int     endian;
+    int     width;
+    int     height;
 }   t_img;
 
 typedef struct s_game
@@ -110,6 +115,10 @@ typedef struct s_game
     t_keys      keys;
 	int         floor_color;
 	int         ceiling_color;
+	t_img       tex_no;
+	t_img       tex_so;
+	t_img       tex_we;
+	t_img       tex_ea;
 }   t_game;
 
 //------------//parsing :
