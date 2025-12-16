@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 10:25:25 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/12/14 23:19:16 by abdo             ###   ########.fr       */
+/*   Updated: 2025/12/16 12:24:46 by sabderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./parsing/cub3d.h"
-
-// static int ft_abs(int x)
-// {
-//     if (x < 0)
-//         return (-x);
-//     return (x);
-// }
 
 void put_pixel(t_img *img, int x, int y, int color)
 {
@@ -250,32 +243,32 @@ int close_game(t_game *g)
 
 int key_press(int keycode, t_game *g)
 {
-    if (keycode == 65307)
+    if (keycode == KEY_ESC)
         close_game(g);
-    if (keycode == 'w')
+    if (keycode == KEY_W)
         g->keys.w = 1;
-    if (keycode == 's')
+    if (keycode == KEY_S)
         g->keys.s = 1;
-    if (keycode == 'a')
+    if (keycode == KEY_A)
         g->keys.a = 1;
-    if (keycode == 'd')
+    if (keycode == KEY_D)
         g->keys.d = 1;
-    if (keycode == 65361)
+    if (keycode == KEY_LEFT)
         rotate_left(g);
-    if (keycode == 65363)
+    if (keycode == KEY_RIGHT)
         rotate_right(g);
     return (0);
 }
 
 int key_release(int keycode, t_game *g)
 {
-    if (keycode == 'w')
+    if (keycode == KEY_W)
         g->keys.w = 0;
-    if (keycode == 's')
+    if (keycode == KEY_S)
         g->keys.s = 0;
-    if (keycode == 'a')
+    if (keycode == KEY_A)
         g->keys.a = 0;
-    if (keycode == 'd')
+    if (keycode == KEY_D)
         g->keys.d = 0;
     return (0);
 }
