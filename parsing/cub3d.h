@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:29:24 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/12/16 12:25:37 by sabderra         ###   ########.fr       */
+/*   Updated: 2025/12/18 21:15:33 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,16 @@
 # define KEY_RIGHT  124
 #else
 /* Linux key codes */
-// # define KEY_ESC    65307
-// # define KEY_W      119
-// # define KEY_A      97
-// # define KEY_S      115
-// # define KEY_D      100
-// # define KEY_LEFT   65361
-// # define KEY_RIGHT  65363
+# define KEY_ESC    65307
+# define KEY_W      119
+# define KEY_A      97
+# define KEY_S      115
+# define KEY_D      100
+# define KEY_LEFT   65361
+# define KEY_RIGHT  65363
 #endif
 
 #include "mlx.h"
-
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
