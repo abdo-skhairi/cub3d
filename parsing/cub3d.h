@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:29:24 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/12/18 21:15:33 by abdo             ###   ########.fr       */
+/*   Updated: 2025/12/20 15:11:48 by sabderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #define TILE_SIZE 32
 #define PLAYER_SIZE 8
 #define MOVE_SPEED  0.06
-#define ROT_SPEED   0.06
+#define ROT_SPEED   0.09
 
 /* macOS key codes */
 #ifdef __APPLE__

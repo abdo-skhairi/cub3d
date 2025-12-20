@@ -1,54 +1,54 @@
-# NAME	:= cub3D
+NAME	:= cub3D
 
-# CC		:= cc
-# CFLAGS	:= -Wall -Wextra -Werror -g
-
-
-# MLX_DIR	:= mlx
-# MLX_INC	:= -I$(MLX_DIR)
-# MLX_LIB	:= -L$(MLX_DIR) -lmlx
-# MLX_FW	:= -framework OpenGL -framework AppKit
+CC		:= cc
+CFLAGS	:= -Wall -Wextra -Werror -g
 
 
-# SRC		:= cub3d.c \
-# 			parsing/parsing.c \
-# 			parsing/check_file_name.c \
-# 			parsing/print_error.c \
-# 			parsing/read_fd.c \
-# 			parsing/get_next_line/get_next_line_utils.c \
-# 			parsing/get_next_line/get_next_line.c \
-# 			parsing/utils/split_rgb.c \
-# 			parsing/utils.c \
-# 			parsing/check_line.c \
-# 			parsing/utils/strtrim.c \
-# 			parsing/check_map.c \
-# 			parsing/utils/atoi_rgb.c \
-# 			parsing/utils/split.c \
-# 			parsing/textures_colors.c \
-# 			parsing/check_map_errors.c
-
-# OBJ		:= $(SRC:.c=.o)
-# HEADER	:= parsing/cub3d.h
+MLX_DIR	:= mlx
+MLX_INC	:= -I$(MLX_DIR)
+MLX_LIB	:= -L$(MLX_DIR) -lmlx
+MLX_FW	:= -framework OpenGL -framework AppKit
 
 
-# all: $(NAME)
+SRC		:= cub3d.c \
+			parsing/parsing.c \
+			parsing/check_file_name.c \
+			parsing/print_error.c \
+			parsing/read_fd.c \
+			parsing/get_next_line/get_next_line_utils.c \
+			parsing/get_next_line/get_next_line.c \
+			parsing/utils/split_rgb.c \
+			parsing/utils.c \
+			parsing/check_line.c \
+			parsing/utils/strtrim.c \
+			parsing/check_map.c \
+			parsing/utils/atoi_rgb.c \
+			parsing/utils/split.c \
+			parsing/textures_colors.c \
+			parsing/check_map_errors.c
 
-# $(NAME): $(OBJ)
-# 	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIB) $(MLX_FW) -o $(NAME)
+OBJ		:= $(SRC:.c=.o)
+HEADER	:= parsing/cub3d.h
 
-# %.o: %.c $(HEADER)
-# 	$(CC) $(CFLAGS) $(MLX_INC) -c $< -o $@
 
-# clean:
-# 	rm -rf $(OBJ)
-# 	@make -C $(MLX_DIR) clean
+all: $(NAME)
 
-# fclean: clean
-# 	rm -rf $(NAME)
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIB) $(MLX_FW) -o $(NAME)
 
-# re: fclean all
+%.o: %.c $(HEADER)
+	$(CC) $(CFLAGS) $(MLX_INC) -c $< -o $@
 
-# .PHONY: all clean fclean re
+clean:
+	rm -rf $(OBJ)
+	@make -C $(MLX_DIR)
+
+fclean: clean
+	rm -rf $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
 
 
 
@@ -58,45 +58,45 @@
 
 
 
-NAME	:= cub3D
-CC		:= cc
-CFLAGS	:= -Wall -Wextra -Werror -g
+# NAME	:= cub3D
+# CC		:= cc
+# CFLAGS	:= -Wall -Wextra -Werror -g
 
-SRC		:= cub3d.c \
-			./parsing/parsing.c \
-			./parsing/check_file_name.c \
-			./parsing/print_error.c \
-			./parsing/read_fd.c \
-			./parsing/get_next_line/get_next_line_utils.c \
-			./parsing/get_next_line/get_next_line.c \
-			./parsing/utils/split_rgb.c \
-			./parsing/utils.c \
-			./parsing/check_line.c \
-			./parsing/utils/strtrim.c \
-			./parsing/check_map.c \
-			./parsing/utils/atoi_rgb.c \
-			./parsing/utils/split.c \
-			./parsing/textures_colors.c \
-			./parsing/check_map_errors.c
+# SRC		:= cub3d.c \
+# 			./parsing/parsing.c \
+# 			./parsing/check_file_name.c \
+# 			./parsing/print_error.c \
+# 			./parsing/read_fd.c \
+# 			./parsing/get_next_line/get_next_line_utils.c \
+# 			./parsing/get_next_line/get_next_line.c \
+# 			./parsing/utils/split_rgb.c \
+# 			./parsing/utils.c \
+# 			./parsing/check_line.c \
+# 			./parsing/utils/strtrim.c \
+# 			./parsing/check_map.c \
+# 			./parsing/utils/atoi_rgb.c \
+# 			./parsing/utils/split.c \
+# 			./parsing/textures_colors.c \
+# 			./parsing/check_map_errors.c
 
-OBJ		:= $(SRC:.c=.o)
+# OBJ		:= $(SRC:.c=.o)
 
-# MLX (update paths to your MLX folder)
-MLX_INC	:= -I/home/abdo/cubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/last_cub/last_cub/mlx
-MLX_LIB	:= -L/home/abdo/cubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/last_cub/last_cub/mlx -lmlx -lX11 -lXext -lm -lz
+# # MLX (update paths to your MLX folder)
+# MLX_INC	:= -I/home/abdo/cubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/last_cub/last_cub/mlx
+# MLX_LIB	:= -L/home/abdo/cubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/last_cub/last_cub/mlx -lmlx -lX11 -lXext -lm -lz
 
-all: $(NAME)
+# all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX_INC) $(MLX_LIB) -o $(NAME)
+# $(NAME): $(OBJ)
+# 	$(CC) $(CFLAGS) $(OBJ) $(MLX_INC) $(MLX_LIB) -o $(NAME)
 
-%.o: %.c ./parsing/cub3d.h
-	$(CC) $(CFLAGS) $(MLX_INC) -c $< -o $@
+# %.o: %.c ./parsing/cub3d.h
+# 	$(CC) $(CFLAGS) $(MLX_INC) -c $< -o $@
 
-clean:
-	rm -rf $(OBJ)
+# clean:
+# 	rm -rf $(OBJ)
 
-fclean: clean
-	rm -rf $(NAME)
+# fclean: clean
+# 	rm -rf $(NAME)
 
-re: fclean all
+# re: fclean all
