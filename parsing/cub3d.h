@@ -6,7 +6,7 @@
 /*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:29:24 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/12/20 15:11:48 by sabderra         ###   ########.fr       */
+/*   Updated: 2025/12/25 12:44:08 by sabderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #define TILE_SIZE 32
 #define PLAYER_SIZE 8
 #define MOVE_SPEED  0.06
-#define ROT_SPEED   0.09
+#define ROT_SPEED   0.06
 
 /* macOS key codes */
 #ifdef __APPLE__
@@ -139,6 +139,23 @@ typedef struct s_game
 	t_img       tex_ea;
 }   t_game;
 
+typedef struct s_ray
+{
+    double  camera_x;
+    double  ray_dir_x;
+    double  ray_dir_y;
+    int     map_x;
+    int     map_y;
+    double  side_dist_x;
+    double  side_dist_y;
+    double  delta_dist_x;
+    double  delta_dist_y;
+    int     step_x;
+    int     step_y;
+    int     hit;
+    int     side;
+}   t_ray;
+
 //------------//parsing :
 
 void    ft_parsing(char *str, t_data *dt);
@@ -147,12 +164,8 @@ void	ft_print_error(char *s, char **map, char *line);
 void	ft_free_map(char **map);
 void	ft_read_fd(char *fd_in, t_data *dt);
 void	ft_check_line(char *line, t_data *dt);
-char	*ft_get_texture(char *s);
 int		ft_strncmp(char *s1, char *s2, int n);
-char	*ft_get_color(char *s);
 void	ft_init_color(char *line, t_data *dt);
-char	*ft_get_texture(char *s);
-char	*ft_get_color(char *s);
 void    ft_init_map(char *line, t_data *dt);
 void    ft_extract_color(t_data *dt);
 void	ft_check_map_error(t_data *dt);
@@ -163,11 +176,34 @@ void	ft_check_map_error(t_data *dt);
 
 //------------//utils :
 char	*ft_strtrim(char *s1, char *set);
-void	*ft_memset(void *b, int c, size_t len);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_strdup_2(char *s1);
 char	**ft_split_rgb(char *s, char c);
 char	**ft_split(char *s, char c);
 int		ft_atoi_rgb(char *nptr);
+
+//------------//raycasting :
+int get_texture_pixel(t_img *texture, int x, int y);
+void put_pixel(t_img *img, int x, int y, int color);
+void draw_scene(t_game *g);
+int is_wall(t_game *g, double x, double y);
+void rotate_right(t_game *g);
+void rotate_left(t_game *g);
+void strafe_right(t_game *g);
+void strafe_left(t_game *g);
+void move_backward(t_game *g);
+void move_forward(t_game *g);
+void load_texture(t_game *g, t_img *texture, char *path);
+int get_texture_pixel(t_img *texture, int x, int y);
+void put_pixel(t_img *img, int x, int y, int color);
+void init_game(t_game *g, t_data *dt);
+
+int key_press(int keycode, t_game *g);
+int key_release(int keycode, t_game *g);
+int is_wall(t_game *g, double x, double y);
+int close_game(t_game *g);
+
+t_img *select_texture(t_game *g, t_ray *r);
+double get_perp_wall_dist(t_game *g, t_ray *r);
+
 
 #endif

@@ -10,7 +10,12 @@ MLX_LIB	:= -L$(MLX_DIR) -lmlx
 MLX_FW	:= -framework OpenGL -framework AppKit
 
 
-SRC		:= cub3d.c \
+SRC		:=  cub3d.c \
+			game/pixel.c \
+			game/draw.c \
+			game/init_game.c \
+			game/game_utils.c \
+			game/moves.c \
 			parsing/parsing.c \
 			parsing/check_file_name.c \
 			parsing/print_error.c \
@@ -41,7 +46,6 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -rf $(OBJ)
-	@make -C $(MLX_DIR)
 
 fclean: clean
 	rm -rf $(NAME)
@@ -53,7 +57,7 @@ re: fclean all
 
 
 
-#for linux mlx
+# for linux mlx
 
 
 
