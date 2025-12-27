@@ -6,7 +6,7 @@
 /*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:29:24 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/12/25 12:44:08 by sabderra         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:33:06 by sabderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@
 #  define BUFFER_SIZE 5
 # endif
 
-
 #define TILE_SIZE 32
 #define PLAYER_SIZE 8
 #define MOVE_SPEED  0.06
-#define ROT_SPEED   0.06
+#define ROT_SPEED   0.2
+#define KEY_PRESS_MASK    (1L << 0)
+#define KEY_RELEASE_MASK  (1L << 1)
+#define EVENT_KEY_PRESS     2
+#define EVENT_KEY_RELEASE   3
+#define EVENT_CLOSE        17
 
 /* macOS key codes */
 #ifdef __APPLE__
@@ -50,7 +54,7 @@
 # include <stdio.h>
 #include <math.h>
 
-# include "./get_next_line/get_next_line.h"
+# include "./parsing/get_next_line/get_next_line.h"
 
 typedef struct s_color
 {
@@ -93,7 +97,6 @@ typedef struct	s_data
 	char	player_dir;
 	int		map_last_line;
 }	t_data;
-
 
 typedef struct s_player
 {
@@ -181,7 +184,7 @@ char	**ft_split_rgb(char *s, char c);
 char	**ft_split(char *s, char c);
 int		ft_atoi_rgb(char *nptr);
 
-//------------//raycasting :
+//------------//game :
 int get_texture_pixel(t_img *texture, int x, int y);
 void put_pixel(t_img *img, int x, int y, int color);
 void draw_scene(t_game *g);
@@ -204,6 +207,6 @@ int close_game(t_game *g);
 
 t_img *select_texture(t_game *g, t_ray *r);
 double get_perp_wall_dist(t_game *g, t_ray *r);
-
+void	init_ray(t_game	*g, t_ray	*r, int x);
 
 #endif

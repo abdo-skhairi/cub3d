@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   atoi_rgb.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maeskhai <maeskhai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:14:06 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/11/19 13:14:07 by maeskhai         ###   ########.fr       */
+/*   Updated: 2025/12/25 15:22:13 by sabderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 int	ft_atoi_rgb(char *str)
 {

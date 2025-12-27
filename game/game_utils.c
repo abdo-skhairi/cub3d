@@ -1,5 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/26 18:32:44 by sabderra          #+#    #+#             */
+/*   Updated: 2025/12/27 11:33:57 by sabderra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../parsing/cub3d.h"
+#include "../cub3d.h"
+
+void	init_ray(t_game	*g, t_ray	*r, int x)
+{
+	r->camera_x = 2 * x / (double)g->win_w - 1;
+	r->ray_dir_x = g->player.dir_x + g->player.plane_x * r->camera_x;
+	r->ray_dir_y = g->player.dir_y + g->player.plane_y * r->camera_x;
+	r->map_x = (int)g->player.x;
+	r->map_y = (int)g->player.y;
+	if (r->ray_dir_x == 0)
+		r->delta_dist_x = 1e30;
+	else
+		r->delta_dist_x = fabs(1 / r->ray_dir_x);
+	if (r->ray_dir_y == 0)
+		r->delta_dist_y = 1e30;
+	else
+		r->delta_dist_y = fabs(1 / r->ray_dir_y);
+	r->hit = 0;
+}
 
 int key_press(int keycode, t_game *g)
 {

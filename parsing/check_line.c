@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maeskhai <maeskhai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:11:55 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/11/24 16:32:22 by maeskhai         ###   ########.fr       */
+/*   Updated: 2025/12/25 15:25:21 by sabderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 char	*ft_skip_spaces_tabs(char *line)
 {

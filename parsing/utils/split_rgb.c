@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   split_rgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maeskhai <maeskhai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:03:29 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/11/23 15:40:43 by maeskhai         ###   ########.fr       */
+/*   Updated: 2025/12/25 15:26:08 by sabderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 static int	ft_len_sep(char *s, char c)
 {

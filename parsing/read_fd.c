@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_fd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maeskhai <maeskhai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:29:32 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/11/26 18:01:41 by maeskhai         ###   ########.fr       */
+/*   Updated: 2025/12/25 15:25:42 by sabderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	init_var_dt(t_data *dt)
 {

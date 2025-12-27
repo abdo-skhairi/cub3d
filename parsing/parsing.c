@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maeskhai <maeskhai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:07:16 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/11/19 14:02:09 by maeskhai         ###   ########.fr       */
+/*   Updated: 2025/12/25 15:25:36 by sabderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void    ft_parsing(char *fd_in, t_data *dt)
 {

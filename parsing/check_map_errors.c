@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_errors.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 16:33:22 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/12/14 18:47:17 by abdo             ###   ########.fr       */
+/*   Updated: 2025/12/25 15:25:27 by sabderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void    ft_check_map_chars(t_data *dt)
 {

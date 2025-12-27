@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   strtrim.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maeskhai <maeskhai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:14:26 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/11/24 16:32:08 by maeskhai         ###   ########.fr       */
+/*   Updated: 2025/12/25 15:26:13 by sabderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 static int	ft_search(char *set, char c)
 {

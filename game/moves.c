@@ -6,11 +6,11 @@
 /*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/25 12:21:12 by sabderra          #+#    #+#             */
-/*   Updated: 2025/12/25 12:39:51 by sabderra         ###   ########.fr       */
+/*   Updated: 2025/12/25 15:24:46 by sabderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing/cub3d.h"
+#include "../cub3d.h"
 
 void move_forward(t_game *g)
 {
