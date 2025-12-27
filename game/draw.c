@@ -6,7 +6,7 @@
 /*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/25 12:21:07 by sabderra          #+#    #+#             */
-/*   Updated: 2025/12/27 11:33:24 by sabderra         ###   ########.fr       */
+/*   Updated: 2025/12/27 11:55:32 by sabderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,24 @@ typedef struct s_column
 	double	tex_pos;
 	int		y;
 }	t_column;
+
+void	init_ray(t_game	*g, t_ray	*r, int x)
+{
+	r->camera_x = 2 * x / (double)g->win_w - 1;
+	r->ray_dir_x = g->player.dir_x + g->player.plane_x * r->camera_x;
+	r->ray_dir_y = g->player.dir_y + g->player.plane_y * r->camera_x;
+	r->map_x = (int)g->player.x;
+	r->map_y = (int)g->player.y;
+	if (r->ray_dir_x == 0)
+		r->delta_dist_x = 1e30;
+	else
+		r->delta_dist_x = fabs(1 / r->ray_dir_x);
+	if (r->ray_dir_y == 0)
+		r->delta_dist_y = 1e30;
+	else
+		r->delta_dist_y = fabs(1 / r->ray_dir_y);
+	r->hit = 0;
+}
 
 static void	init_step_and_side(t_game *g, t_ray *r)
 {

@@ -6,7 +6,7 @@
 /*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:29:24 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/12/27 11:33:06 by sabderra         ###   ########.fr       */
+/*   Updated: 2025/12/27 13:34:21 by sabderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #define EVENT_KEY_RELEASE   3
 #define EVENT_CLOSE        17
 
-/* macOS key codes */
+/* macOS */
 #ifdef __APPLE__
 # define KEY_ESC    53
 # define KEY_W      13
@@ -37,7 +37,7 @@
 # define KEY_LEFT   123
 # define KEY_RIGHT  124
 #else
-/* Linux key codes */
+/* Linux */
 # define KEY_ESC    65307
 # define KEY_W      119
 # define KEY_A      97
@@ -46,6 +46,7 @@
 # define KEY_LEFT   65361
 # define KEY_RIGHT  65363
 #endif
+
 
 #include "mlx.h"
 # include <unistd.h>
