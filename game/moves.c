@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/25 12:21:12 by sabderra          #+#    #+#             */
-/*   Updated: 2025/12/27 15:05:17 by sabderra         ###   ########.fr       */
+/*   Updated: 2025/12/28 17:06:56 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,14 @@ void strafe_right(t_game *g)
         g->player.y += dy;
 }
 
-void rotate_left(t_game *g)
+void rotate_right(t_game *g)
 {
     double new_dir_x;
     double new_dir_y;
     double old_dir_x;
     double old_plane_x;
 
+    (void)old_dir_x;
     new_dir_x = g->player.dir_x * cos(ROT_SPEED)
         - g->player.dir_y * sin(ROT_SPEED);
     new_dir_y = g->player.dir_x * sin(ROT_SPEED)
@@ -108,13 +109,14 @@ void rotate_left(t_game *g)
         + g->player.plane_y * cos(ROT_SPEED);
 }
 
-void rotate_right(t_game *g)
+void rotate_left(t_game *g)
 {
     double new_dir_x;
     double new_dir_y;
     double old_dir_x;
     double old_plane_x;
 
+    (void)old_dir_x;
     new_dir_x = g->player.dir_x * cos(-ROT_SPEED)
         - g->player.dir_y * sin(-ROT_SPEED);
     new_dir_y = g->player.dir_x * sin(-ROT_SPEED)

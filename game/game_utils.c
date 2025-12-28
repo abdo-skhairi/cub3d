@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 18:32:44 by sabderra          #+#    #+#             */
-/*   Updated: 2025/12/27 13:32:25 by sabderra         ###   ########.fr       */
+/*   Updated: 2025/12/28 17:08:01 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int key_press(int keycode, t_game *g)
     if (keycode == KEY_D)
         g->keys.d = 1;
     if (keycode == KEY_LEFT)
-        rotate_left(g);
+        rotate_left(g); 
     if (keycode == KEY_RIGHT)
         rotate_right(g);
     return (0);
