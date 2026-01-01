@@ -6,7 +6,7 @@
 /*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:29:24 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/12/28 16:25:11 by abdo             ###   ########.fr       */
+/*   Updated: 2026/01/01 20:29:16 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,5 +209,6 @@ int close_game(t_game *g);
 t_img *select_texture(t_game *g, t_ray *r);
 double get_perp_wall_dist(t_game *g, t_ray *r);
 void	init_ray(t_game	*g, t_ray	*r, int x);
+void free_game_resources(t_game *g);
 
 #endif

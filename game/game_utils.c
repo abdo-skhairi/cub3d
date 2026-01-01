@@ -6,7 +6,7 @@
 /*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 18:32:44 by sabderra          #+#    #+#             */
-/*   Updated: 2025/12/28 17:08:01 by abdo             ###   ########.fr       */
+/*   Updated: 2026/01/01 20:28:44 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int is_wall(t_game *g, double x, double y)
 
 int close_game(t_game *g)
 {
+    free_game_resources(g);
     mlx_destroy_window(g->mlx, g->win);
     exit(0);
     return (0);
