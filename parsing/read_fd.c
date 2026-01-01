@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_fd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:29:32 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/12/25 15:25:42 by sabderra         ###   ########.fr       */
+/*   Updated: 2026/01/01 22:18:02 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_read_fd(char *fd_in, t_data *dt)
 	while (line)
 	{
 		ft_check_line(line, dt);
-		// free(line);
+		free(line);
 		line = get_next_line(dt->fd);
 	}
 	if (!dt->map || !dt->map[0])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/25 12:25:43 by sabderra          #+#    #+#             */
-/*   Updated: 2025/12/27 13:08:41 by sabderra         ###   ########.fr       */
+/*   Updated: 2026/01/02 00:03:53 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,37 @@ static void init_mlx(t_game *g, t_data *dt)
 	load_texture(g, &g->tex_no, dt->no);
 	load_texture(g, &g->tex_so, dt->so);
 	load_texture(g, &g->tex_we, dt->we);
-	load_texture(g, &g->tex_ea, dt->ea);
-	g->win = mlx_new_window(g->mlx, g->win_w, g->win_h, "cub3D");
+	load_texture(g, &g->tex_ea, dt->ea);	/* Free the parsed texture paths and color strings; they are no longer needed */
+	if (dt->no)
+	{
+		free(dt->no);
+		dt->no = NULL;
+	}
+	if (dt->so)
+	{
+		free(dt->so);
+		dt->so = NULL;
+	}
+	if (dt->we)
+	{
+		free(dt->we);
+		dt->we = NULL;
+	}
+	if (dt->ea)
+	{
+		free(dt->ea);
+		dt->ea = NULL;
+	}
+	if (dt->f_color)
+	{
+		free(dt->f_color);
+		dt->f_color = NULL;
+	}
+	if (dt->c_color)
+	{
+		free(dt->c_color);
+		dt->c_color = NULL;
+	}	g->win = mlx_new_window(g->mlx, g->win_w, g->win_h, "cub3D");
 	g->img.img = mlx_new_image(g->mlx, g->win_w, g->win_h);
 	g->img.addr = mlx_get_data_addr(
 		g->img.img,

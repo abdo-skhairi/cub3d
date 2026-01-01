@@ -6,32 +6,11 @@
 /*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 18:32:29 by sabderra          #+#    #+#             */
-/*   Updated: 2026/01/01 20:31:37 by abdo             ###   ########.fr       */
+/*   Updated: 2026/01/01 21:54:42 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void free_game_resources(t_game *g)
-{
-    if (g->tex_no.img)
-        mlx_destroy_image(g->mlx, g->tex_no.img);
-    if (g->tex_so.img)
-        mlx_destroy_image(g->mlx, g->tex_so.img);
-    if (g->tex_we.img)
-        mlx_destroy_image(g->mlx, g->tex_we.img);
-    if (g->tex_ea.img)
-        mlx_destroy_image(g->mlx, g->tex_ea.img);
-    if (g->img.img)
-        mlx_destroy_image(g->mlx, g->img.img);
-    if (g->win)
-        mlx_destroy_window(g->mlx, g->win);
-    if (g->mlx)
-    {
-        mlx_destroy_display(g->mlx);
-        free(g->mlx);
-    }
-}
 
 int	game_loop(t_game	*g)
 {
@@ -56,31 +35,6 @@ int	game_loop(t_game	*g)
 	return (0);
 }
 
-void free_data(t_data *dt)
-{
-	int i;
-
-	if (dt->no)
-		free(dt->no);
-	if (dt->so)
-		free(dt->so);
-	if (dt->we)
-		free(dt->we);
-	if (dt->ea)
-		free(dt->ea);
-	if (dt->map)
-	{
-		i = 0;
-		while (i < dt->map_height)
-		{
-			if (dt->map[i])
-				free(dt->map[i]);
-			i++;
-		}
-		free(dt->map);
-	}
-}
-
 int	main(int ac, char	**av)
 {
 	t_data	dt;
@@ -95,7 +49,5 @@ int	main(int ac, char	**av)
 	mlx_hook(g.win, EVENT_CLOSE, 0, close_game, &g);
 	mlx_loop_hook(g.mlx, game_loop, &g);
 	mlx_loop(g.mlx);
-	free_data(&dt);
-	free_game_resources(&g);
 	return (0);
 }

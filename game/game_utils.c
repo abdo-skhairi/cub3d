@@ -6,7 +6,7 @@
 /*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 18:32:44 by sabderra          #+#    #+#             */
-/*   Updated: 2026/01/01 20:28:44 by abdo             ###   ########.fr       */
+/*   Updated: 2026/01/02 00:03:53 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,35 @@ int is_wall(t_game *g, double x, double y)
     return (0);
 }
 
+void free_game_resources(t_game *g)
+{
+    if (!g)
+        return ;
+    if (g->img.img)
+        mlx_destroy_image(g->mlx, g->img.img);
+    if (g->tex_no.img)
+        mlx_destroy_image(g->mlx, g->tex_no.img);
+    if (g->tex_so.img)
+        mlx_destroy_image(g->mlx, g->tex_so.img);
+    if (g->tex_we.img)
+        mlx_destroy_image(g->mlx, g->tex_we.img);
+    if (g->tex_ea.img)
+        mlx_destroy_image(g->mlx, g->tex_ea.img);
+    if (g->win)
+        mlx_destroy_window(g->mlx, g->win);
+    if (g->mlx)
+    {
+        mlx_destroy_display(g->mlx);
+        free(g->mlx);
+        g->mlx = NULL;
+    }
+    if (g->map)
+        ft_free_map(g->map);
+}
+
 int close_game(t_game *g)
 {
     free_game_resources(g);
-    mlx_destroy_window(g->mlx, g->win);
     exit(0);
     return (0);
 }

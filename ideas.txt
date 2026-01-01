@@ -1,2 +1,2 @@
 when i rotate and try to go inside wall, i get infinit moves
- but i want the player just when will be in the wall section should stop
+but i want the player just when will be in the wall section should stop

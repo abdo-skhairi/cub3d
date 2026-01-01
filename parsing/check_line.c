@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:11:55 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/12/25 15:25:21 by sabderra         ###   ########.fr       */
+/*   Updated: 2026/01/01 22:18:02 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,18 @@ void	ft_check_line(char *line,t_data *dt)
 	if (dt->map_line_start == 0)
 		line_no_spaces = ft_skip_spaces_tabs(line);
 	if ((!line_no_spaces || line_no_spaces[0] == '\n') && dt->map_line_start == 0)
+	{
+		if (line_no_spaces)
+			free(line_no_spaces);
 		return ;
+	}
 	if ((ft_strncmp(line_no_spaces, "NO", 2) == 0
 		|| ft_strncmp(line_no_spaces, "SO", 2) == 0
 		|| ft_strncmp(line_no_spaces, "WE", 2) == 0
 		|| ft_strncmp(line_no_spaces, "EA", 2) == 0) && dt->map_line_start == 0)
 	{
 		ft_init_vars(line_no_spaces, dt);
+		free(line_no_spaces);
 		return ;
 	}
 	if ((ft_strncmp(line_no_spaces, "F", 1) == 0
@@ -59,6 +64,7 @@ void	ft_check_line(char *line,t_data *dt)
 		ft_init_color(line_no_spaces, dt);
 		if (dt->nb_f == 1 && dt->nb_c == 1)
 			ft_extract_color(dt);
+		free(line_no_spaces);
 		return ;
 	}
 	if (dt->nb_no != 1 || dt->nb_so != 1 || dt->nb_we != 1 || dt->nb_ea != 1 || dt->nb_f != 1 || dt->nb_c != 1)
