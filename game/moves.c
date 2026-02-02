@@ -5,124 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/25 12:21:12 by sabderra          #+#    #+#             */
-/*   Updated: 2026/01/01 21:28:10 by abdo             ###   ########.fr       */
+/*   Created: 2026/02/02 18:36:48 by abdo              #+#    #+#             */
+/*   Updated: 2026/02/02 18:51:12 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-#include <math.h>
 
-#define PLAYER_RADIUS   0.25
-#define FOV             0.66
-
-static void normalize(double *x, double *y)
+void	move_forward(t_game *g)
 {
-    double len;
+	double	dx;
+	double	dy;
 
-    len = sqrt((*x) * (*x) + (*y) * (*y));
-    if (len > 0.0)
-    {
-        *x /= len;
-        *y /= len;
-    }
+	dx = g->player.dir_x * MOVE_SPEED;
+	dy = g->player.dir_y * MOVE_SPEED;
+	move_with_collision(g, dx, dy);
 }
 
-void move_forward(t_game *g)
+void	move_backward(t_game *g)
 {
-    double new_x;
-    double new_y;
+	double	dx;
+	double	dy;
 
-    new_x = g->player.x
-        + g->player.dir_x * (MOVE_SPEED + PLAYER_RADIUS);
-    new_y = g->player.y
-        + g->player.dir_y * (MOVE_SPEED + PLAYER_RADIUS);
-
-    if (!is_wall(g, new_x, new_y))
-    {
-        g->player.x += g->player.dir_x * MOVE_SPEED;
-        g->player.y += g->player.dir_y * MOVE_SPEED;
-    }
+	dx = g->player.dir_x * MOVE_SPEED;
+	dy = g->player.dir_y * MOVE_SPEED;
+	move_with_collision(g, -dx, -dy);
 }
 
-void move_backward(t_game *g)
+void	rotate_right(t_game *g)
 {
-    double new_x;
-    double new_y;
-
-    new_x = g->player.x
-        - g->player.dir_x * (MOVE_SPEED + PLAYER_RADIUS);
-    new_y = g->player.y
-        - g->player.dir_y * (MOVE_SPEED + PLAYER_RADIUS);
-
-    if (!is_wall(g, new_x, new_y))
-    {
-        g->player.x -= g->player.dir_x * MOVE_SPEED;
-        g->player.y -= g->player.dir_y * MOVE_SPEED;
-    }
+	apply_rotation(g, ROT_SPEED);
 }
 
-
-void strafe_left(t_game *g)
+void	rotate_left(t_game *g)
 {
-    double new_x;
-    double new_y;
-
-    new_x = g->player.x
-        - g->player.plane_x * (MOVE_SPEED + PLAYER_RADIUS);
-    new_y = g->player.y
-        - g->player.plane_y * (MOVE_SPEED + PLAYER_RADIUS);
-
-    if (!is_wall(g, new_x, new_y))
-    {
-        g->player.x -= g->player.plane_x * MOVE_SPEED;
-        g->player.y -= g->player.plane_y * MOVE_SPEED;
-    }
-}
-
-void strafe_right(t_game *g)
-{
-    double new_x;
-    double new_y;
-
-    new_x = g->player.x
-        + g->player.plane_x * (MOVE_SPEED + PLAYER_RADIUS);
-    new_y = g->player.y
-        + g->player.plane_y * (MOVE_SPEED + PLAYER_RADIUS);
-
-    if (!is_wall(g, new_x, new_y))
-    {
-        g->player.x += g->player.plane_x * MOVE_SPEED;
-        g->player.y += g->player.plane_y * MOVE_SPEED;
-    }
-}
-
-void rotate_right(t_game *g)
-{
-    double old_dir_x;
-
-    old_dir_x = g->player.dir_x;
-    g->player.dir_x = g->player.dir_x * cos(ROT_SPEED)
-        - g->player.dir_y * sin(ROT_SPEED);
-    g->player.dir_y = old_dir_x * sin(ROT_SPEED)
-        + g->player.dir_y * cos(ROT_SPEED);
-
-    normalize(&g->player.dir_x, &g->player.dir_y);
-    g->player.plane_x = -g->player.dir_y * FOV;
-    g->player.plane_y =  g->player.dir_x * FOV;
-}
-
-void rotate_left(t_game *g)
-{
-    double old_dir_x;
-
-    old_dir_x = g->player.dir_x;
-    g->player.dir_x = g->player.dir_x * cos(-ROT_SPEED)
-        - g->player.dir_y * sin(-ROT_SPEED);
-    g->player.dir_y = old_dir_x * sin(-ROT_SPEED)
-        + g->player.dir_y * cos(-ROT_SPEED);
-
-    normalize(&g->player.dir_x, &g->player.dir_y);
-    g->player.plane_x = -g->player.dir_y * FOV;
-    g->player.plane_y =  g->player.dir_x * FOV;
+	apply_rotation(g, -ROT_SPEED);
 }

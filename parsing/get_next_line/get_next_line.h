@@ -6,7 +6,7 @@
 /*   By: maeskhai <maeskhai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 11:17:14 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/09/24 16:36:33 by maeskhai         ###   ########.fr       */
+/*   Updated: 2026/01/17 01:17:34 by maeskhai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_strchr(char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_free(char **s1, char **s2);
-int	ft_strlen(char *s);
+int		ft_strlen(char *s);
 char	*ft_strdup(char *s1);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 #endif

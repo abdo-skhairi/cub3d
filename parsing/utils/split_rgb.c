@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_rgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maeskhai <maeskhai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:03:29 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/12/25 15:26:08 by sabderra         ###   ########.fr       */
+/*   Updated: 2026/01/22 13:14:51 by maeskhai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,39 +20,6 @@ static int	ft_len_sep(char *s, char c)
 	while (s[i] && s[i] != c)
 		i++;
 	return (i);
-}
-
-static int	ft_nwords(char *s, char c)
-{
-	int	i;
-	int	w;
-	int nb_c;
-
-	i = 0;
-	w = 0;
-	nb_c = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			nb_c++;
-		i++;
-	}
-	if (nb_c == 3)
-		ft_print_error("Error\nInvalid Color Info!\n", NULL, NULL);
-	i = 0;
-	while (s[i])
-	{
-		while (s[i] == c)
-			i++;
-		if (s[i])
-		{
-			w++;
-		}
-		while (s[i] && s[i] != c)
-			i++;
-		// i++;
-	}
-	return (w);
 }
 
 static void	ft_free_arr(char **arr, int index)
@@ -88,7 +55,6 @@ static char	**ft_spwork(char **arr, char *s, char c, int n_words)
 		i++;
 	}
 	arr[i] = NULL;
-	// free(s);
 	return (arr);
 }
 

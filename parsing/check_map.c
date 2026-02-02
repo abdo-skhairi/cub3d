@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: maeskhai <maeskhai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:29:26 by maeskhai          #+#    #+#             */
-/*   Updated: 2026/01/02 00:20:12 by abdo             ###   ########.fr       */
+/*   Updated: 2026/01/17 02:20:24 by maeskhai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ int	ft_is_empty_line(char *str)
 	return (1);
 }
 
-void    ft_init_map(char *line, t_data *dt)
+void	ft_init_map(char *line, t_data *dt)
 {
-	char *merge;
-	char *tmp;
-	int check;
+	char	*merge;
+	char	*tmp;
+	int		check;
 
 	merge = ft_strdup("");
 	check = 0;

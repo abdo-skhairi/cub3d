@@ -6,29 +6,25 @@
 /*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/25 12:25:43 by sabderra          #+#    #+#             */
-/*   Updated: 2026/01/02 00:03:53 by abdo             ###   ########.fr       */
+/*   Updated: 2026/02/02 19:12:19 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void init_window_and_map(t_game *g, t_data *dt)
+static void	init_window_and_map_and_keys(t_game *g, t_data *dt)
 {
 	g->win_w = 1024;
-	g->win_h = 768;
+	g->win_h = 678;
 	g->map = dt->map;
 	g->map_h = dt->map_height;
-}
-
-static void init_keys(t_game *g)
-{
 	g->keys.w = 0;
 	g->keys.s = 0;
 	g->keys.a = 0;
 	g->keys.d = 0;
 }
 
-static void init_player__position_direction(t_game *g, t_data *dt)
+static void	init_player_position_direction(t_game *g, t_data *dt)
 {
 	g->player.x = dt->player_x + 0.5;
 	g->player.y = dt->player_y + 0.5;
@@ -44,7 +40,7 @@ static void init_player__position_direction(t_game *g, t_data *dt)
 		g->player.dir_x = -1;
 }
 
-static void init_player_plane(t_game *g, t_data *dt)
+static void	init_player_plane(t_game *g, t_data *dt)
 {
 	g->player.plane_x = 0;
 	g->player.plane_y = 0;
@@ -58,64 +54,34 @@ static void init_player_plane(t_game *g, t_data *dt)
 		g->player.plane_y = -0.66;
 }
 
-static void init_colors(t_game *g, t_data *dt)
+static void	init_window_and_img(t_game *g, t_data *dt)
 {
-	g->ceiling_color = (dt->c.r << 16) | (dt->c.g << 8) | dt->c.b;
-	g->floor_color = (dt->f.r << 16) | (dt->f.g << 8) | dt->f.b;
-}
-
-static void init_mlx(t_game *g, t_data *dt)
-{
-	g->mlx = mlx_init();
-	load_texture(g, &g->tex_no, dt->no);
-	load_texture(g, &g->tex_so, dt->so);
-	load_texture(g, &g->tex_we, dt->we);
-	load_texture(g, &g->tex_ea, dt->ea);	/* Free the parsed texture paths and color strings; they are no longer needed */
 	if (dt->no)
-	{
 		free(dt->no);
-		dt->no = NULL;
-	}
 	if (dt->so)
-	{
 		free(dt->so);
-		dt->so = NULL;
-	}
 	if (dt->we)
-	{
 		free(dt->we);
-		dt->we = NULL;
-	}
 	if (dt->ea)
-	{
 		free(dt->ea);
-		dt->ea = NULL;
-	}
 	if (dt->f_color)
-	{
 		free(dt->f_color);
-		dt->f_color = NULL;
-	}
 	if (dt->c_color)
-	{
 		free(dt->c_color);
-		dt->c_color = NULL;
-	}	g->win = mlx_new_window(g->mlx, g->win_w, g->win_h, "cub3D");
+	g->win = mlx_new_window(g->mlx, g->win_w, g->win_h, "cub3D");
 	g->img.img = mlx_new_image(g->mlx, g->win_w, g->win_h);
-	g->img.addr = mlx_get_data_addr(
-		g->img.img,
-		&g->img.bpp,
-		&g->img.line_len,
-		&g->img.endian
-	);
+	g->img.width = g->win_w;
+	g->img.height = g->win_h;
+	g->img.addr = mlx_get_data_addr(g->img.img,
+			&g->img.bpp, &g->img.line_len, &g->img.endian);
 }
 
-void init_game(t_game *g, t_data *dt)
+void	init_game(t_game *g, t_data *dt)
 {
-	init_window_and_map(g, dt);
-	init_keys(g);
-	init_player__position_direction(g, dt);
+	init_window_and_map_and_keys(g, dt);
+	init_player_position_direction(g, dt);
 	init_player_plane(g, dt);
 	init_colors(g, dt);
-	init_mlx(g, dt);
+	init_textures(g, dt);
+	init_window_and_img(g, dt);
 }

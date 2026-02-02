@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabderra <sabderra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maeskhai <maeskhai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:07:16 by maeskhai          #+#    #+#             */
-/*   Updated: 2025/12/25 15:25:36 by sabderra         ###   ########.fr       */
+/*   Updated: 2026/01/17 01:37:38 by maeskhai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    ft_parsing(char *fd_in, t_data *dt)
+void	ft_parsing(char *fd_in, t_data *dt)
 {
 	ft_check_file_name(fd_in);
 	ft_read_fd(fd_in, dt);

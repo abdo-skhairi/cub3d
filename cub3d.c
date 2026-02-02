@@ -6,7 +6,7 @@
 /*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 18:32:29 by sabderra          #+#    #+#             */
-/*   Updated: 2026/01/02 01:39:10 by abdo             ###   ########.fr       */
+/*   Updated: 2026/01/29 18:41:58 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,10 @@ int	game_loop(t_game	*g)
 	if (g->keys.d)
 		strafe_right(g);
 	mlx_destroy_image(g->mlx, g->img.img);
+	g->img.img = NULL;
 	g->img.img = mlx_new_image(g->mlx, g->win_w, g->win_h);
-	g->img.addr = mlx_get_data_addr(
-			g->img.img,
-			&g->img.bpp,
-			&g->img.line_len,
-			&g->img.endian
-			);
+	g->img.width = g->win_w;
+	g->img.height = g->win_h;
 	draw_scene(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
 	return (0);
@@ -51,4 +48,3 @@ int	main(int ac, char	**av)
 	mlx_loop(g.mlx);
 	return (0);
 }
-

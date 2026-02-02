@@ -5,27 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abdo <abdo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/25 12:21:07 by sabderra          #+#    #+#             */
-/*   Updated: 2026/01/01 19:53:40 by abdo             ###   ########.fr       */
+/*   Created: 2026/01/27 18:50:38 by abdo              #+#    #+#             */
+/*   Updated: 2026/02/02 18:48:57 by abdo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-typedef struct s_column
+void	init_ray(t_game *g, t_ray *r, int x)
 {
-	int		draw_start;
-	int		draw_end;
-	t_img	*tex;
-	int		tex_x;
-	double	step;
-	double	tex_pos;
-	int		y;
-}	t_column;
-
-void	init_ray(t_game	*g, t_ray	*r, int x)
-{
-	r->camera_x = 2 * x / (double)g->win_w - 1;
+	r->camera_x = (2.0 * x / (double)g->win_w) - 1.0;
 	r->ray_dir_x = g->player.dir_x + g->player.plane_x * r->camera_x;
 	r->ray_dir_y = g->player.dir_y + g->player.plane_y * r->camera_x;
 	r->map_x = (int)g->player.x;
@@ -33,11 +22,11 @@ void	init_ray(t_game	*g, t_ray	*r, int x)
 	if (r->ray_dir_x == 0)
 		r->delta_dist_x = 1e30;
 	else
-		r->delta_dist_x = fabs(1 / r->ray_dir_x);
+		r->delta_dist_x = fabs(1.0 / r->ray_dir_x);
 	if (r->ray_dir_y == 0)
 		r->delta_dist_y = 1e30;
 	else
-		r->delta_dist_y = fabs(1 / r->ray_dir_y);
+		r->delta_dist_y = fabs(1.0 / r->ray_dir_y);
 	r->hit = 0;
 }
 
@@ -81,7 +70,7 @@ static void	perform_dda(t_game *g, t_ray *r)
 			r->map_y += r->step_y;
 			r->side = 1;
 		}
-		if (r->map_y < 0 || r->map_x < 0
+		if (r->map_x < 0 || r->map_y < 0
 			|| r->map_y >= g->map_h
 			|| !g->map[r->map_y]
 			|| r->map_x >= (int)ft_strlen(g->map[r->map_y]))
@@ -91,66 +80,18 @@ static void	perform_dda(t_game *g, t_ray *r)
 	}
 }
 
-static void	compute_column_data(t_game *g, t_ray *r, double perp_dist,
-								int *draw_start, int *draw_end,
-								t_img	**tex, int	*tex_x,
-								double *step, double *tex_pos)
+static void	draw_column_textured(t_game *g, t_ray *r,
+	int x, double perp_dist)
 {
-	int		line_h;
-	double	wall_x;
+	t_texcol	c;
 
-	line_h = (int)(g->win_h / perp_dist);
-	*draw_start = -line_h / 2 + g->win_h / 2;
-	*draw_end = line_h / 2 + g->win_h / 2;
-	if (*draw_start < 0)
-		*draw_start = 0;
-	if (*draw_end >= g->win_h)
-		*draw_end = g->win_h - 1;
-	if (r->side == 0)
-		wall_x = g->player.y + perp_dist * r->ray_dir_y;
-	else
-		wall_x = g->player.x + perp_dist * r->ray_dir_x;
-	wall_x -= floor(wall_x);
-	*tex = select_texture(g, r);
-	*tex_x = (int)(wall_x * (*tex)->width);
-	if ((r->side == 0 && r->ray_dir_x > 0)
-		|| (r->side == 1 && r->ray_dir_y < 0))
-		*tex_x = (*tex)->width - *tex_x - 1;
-	*step = 1.0 * (*tex)->height / line_h;
-	*tex_pos = (*draw_start - g->win_h / 2 + line_h / 2) * (*step);
+	if (perp_dist <= 0)
+		return ;
+	init_texture_column(g, r, perp_dist, &c);
+	draw_column_pixel(g, r, &c, x);
 }
 
-static void	draw_column(t_game *g, t_ray *r,
-			int x, double perp_dist)
-{
-	t_column	col;
-	int			tex_y;
-	int			color;
-
-	compute_column_data(g, r, perp_dist,
-		&col.draw_start, &col.draw_end, &col.tex,
-		&col.tex_x, &col.step, &col.tex_pos);
-	col.y = 0;
-	while (col.y < g->win_h)
-	{
-		if (col.y < col.draw_start)
-			put_pixel(&g->img, x, col.y, g->ceiling_color);
-		else if (col.y > col.draw_end)
-			put_pixel(&g->img, x, col.y, g->floor_color);
-		else
-		{
-			tex_y = (int)col.tex_pos & (col.tex->height - 1);
-			color = get_texture_pixel(col.tex, col.tex_x, tex_y);
-			if (r->side == 1)
-				color = ((color >> 1) & 0x7F7F7F);
-			put_pixel(&g->img, x, col.y, color);
-			col.tex_pos += col.step;
-		}
-		col.y++;
-	}
-}
-
-void	draw_scene(t_game	*g)
+void	draw_scene(t_game *g)
 {
 	int		x;
 	t_ray	r;
@@ -162,8 +103,13 @@ void	draw_scene(t_game	*g)
 		init_ray(g, &r, x);
 		init_step_and_side(g, &r);
 		perform_dda(g, &r);
+		if (!r.hit)
+		{
+			x++;
+			continue ;
+		}
 		perp_dist = get_perp_wall_dist(g, &r);
-		draw_column(g, &r, x, perp_dist);
+		draw_column_textured(g, &r, x, perp_dist);
 		x++;
 	}
 }
