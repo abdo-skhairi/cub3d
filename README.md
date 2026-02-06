@@ -184,4 +184,5 @@ cub3d/
 
 ---
 
+
 **Note**: This README focuses on the raycasting and rendering pipeline. Parsing documentation to be completed by teammate.
