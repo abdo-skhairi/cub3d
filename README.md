@@ -88,111 +88,43 @@ For each vertical column on the screen, we cast one ray from the player's positi
 
 ---
 
+## Texturing System
+
+### Overview
+
+Texturing gives life to walls. Instead of flat colors, each wall is mapped with an image (texture) to create realistic 3D visuals.
+
+### How It Works
+
+After a ray hits a wall:
+1. Determine **wall orientation** (North, South, East, West)
+2. Calculate **exact hit position** on the wall
+3. Map that position to a pixel inside the correct texture
+4. Render the textured slice for that screen column
+5. Apply shading for depth (darken East/West walls slightly)
+
+### Step-by-Step
+
+**1. Detect Wall Orientation**
+- Decide which texture to use based on the wall side hit
+
+**2. Calculate Wall Hit Position**
+- Vertical wall → `hit_x = player_y + perp_dist * ray_dir_y`
+- Horizontal wall → `hit_x = player_x + perp_dist * ray_dir_x`
+- Keep only the decimal part → maps to texture column
+
+**3. Map to Texture Coordinates**
+- `tex_x = int(hit_x * texture_width)`
+- For each pixel in the vertical slice:
+  - `tex_y = int((current_pixel - draw_start) / line_height * texture_height)`
+
+**4. Draw Textured Slice**
+- Copy pixel color from texture to screen
+- Repeat for every column
+
+**5. Apply Shading**
+- Darken walls depending on side (East/West) for depth
+
+---
+
 ## Rendering Flow
-
-```
-Game Loop
-    ↓
-Handle Input (movement/rotation)
-    ↓
-Update Player Position
-    ↓
-Create New Image Buffer
-    ↓
-For Each Screen Column:
-    ├─ Initialize Ray
-    ├─ Run DDA Algorithm
-    ├─ Find Wall Hit
-    ├─ Calculate Distance
-    ├─ Compute Wall Height
-    ├─ Get Texture Coordinates
-    └─ Draw Vertical Slice
-    ↓
-Display Image
-    ↓
-Repeat
-```
-
----
-
-## Movement System
-
-### Controls
-- **W/S**: Move forward/backward
-- **A/D**: Strafe left/right
-- **←/→**: Rotate camera
-- **ESC**: Exit game
-
-### Features
-- Smooth movement using direction vectors
-- Rotation using 2D rotation matrix
-- Collision detection with wall sliding
-- 8-point circle sampling for accurate collision
-
----
-
-## Technical Details
-
-### Fish-Eye Correction
-Using perpendicular distance instead of Euclidean distance prevents the fish-eye distortion effect.
-
-### Wall Shading
-Y-side walls (East/West) are slightly darkened to provide depth perception.
-
-### Texture Mapping
-Each wall hit calculates:
-- Which texture to use (N/S/E/W)
-- X-coordinate on the texture
-- Y-coordinates for each pixel from top to bottom
-
----
-
-## Compilation
-
-```bash
-make
-./cub3D maps/map.cub
-```
-
----
-
-## Map Format
-
-Maps are defined in `.cub` files containing:
-- Texture paths (NO, SO, WE, EA)
-- Floor and ceiling colors (F, C)
-- 2D map grid (0=empty, 1=wall, N/S/E/W=player start)
-
----
-
-## Key Concepts for Evaluation
-
-1. **One Ray Per Column**: Each screen column = one ray cast
-2. **DDA Algorithm**: Efficient grid traversal to find walls
-3. **Perpendicular Distance**: Prevents fish-eye distortion
-4. **Texture Mapping**: Correct texture coordinates for realistic walls
-5. **Collision Detection**: Prevents walking through walls
-6. **Performance**: Real-time rendering at playable frame rates
-
----
-
-## Project Structure
-
-```
-cub3d/
-├── src/
-│   ├── draw.c          # Core raycasting
-│   ├── pixel.c         # Rendering helpers
-│   ├── moves.c         # Player movement
-│   ├── moves_utils.c   # Collision
-│   └── init_*.c        # Initialization
-├── cub3d.c
-│── cub3d.h         # Header file
-└── maps/
-    └── *.cub           # Map files
-```
-
----
-
-
-**Note**: This README focuses on the raycasting and rendering pipeline. Parsing documentation to be completed by teammate.
