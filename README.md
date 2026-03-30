@@ -1,222 +1,165 @@
-
-```md
-# Cub3D - Raycasting Engine
-
-<p align="center">
-  <img src="image" width="800"/>
-</p>
-
-<h1 align="center">Cub3D - Raycasting Engine</h1>
-
-<p align="center">
-  A 3D maze exploration game inspired by Wolfenstein 3D
-</p>
-
-A 3D maze exploration game using raycasting techniques, inspired by Wolfenstein 3D.
-
----
-
-## Overview
-
-Cub3D renders a 3D environment from a 2D map using raycasting. The player can navigate through the maze with realistic wall textures and collision detection.
-
----
-
-## Key Files
-
-| File | Purpose |
-|------|---------|
-| `draw.c` | Ray initialization, DDA algorithm, scene rendering |
-| `pixel.c` | Pixel and texture drawing |
-| `moves.c` | Player movement and rotation |
-| `moves_utils.c` | Collision detection |
-| `init_*.c` | Game, texture, and color initialization |
-| `free.c` | Memory cleanup |
-
----
-
-## How Raycasting Works
-
-### The Basic Concept
-
-For each vertical column on the screen, we cast one ray from the player's position. The ray travels until it hits a wall, then we calculate how tall that wall should appear on screen.
-
-### Step-by-Step Process
-
-**1. Loop Through Screen Columns**
-   - For each column x (from 0 to screen width)
-
-**2. Calculate Ray Direction**
-   - Combine player direction with camera plane
-   - Each column gets a slightly different angle
-
-**3. Initialize DDA Variables**
-   - `map_x`, `map_y`: current map square
-   - `delta_dist`: distance to move to next grid line
-   - `step`: direction of movement (+1 or -1)
-   - `side_dist`: distance to next vertical/horizontal line
-
-**4. Perform DDA (Digital Differential Analysis)**
-   - Walk along the ray step by step
-   - Compare horizontal vs vertical distances
-   - Move to the closest next grid line
-   - Stop when hitting a wall (map value = 1)
-
-**5. Calculate Wall Distance**
-   - Use perpendicular distance to avoid fish-eye effect
-   - Formula: `perp_dist = (side_dist - delta_dist)`
-
-**6. Compute Wall Height**
-   - `line_height = screen_height / perp_dist`
-   - Calculate `draw_start` and `draw_end` positions
-   - Clamp values to screen boundaries
-
-**7. Select Texture**
-   - Determine which wall face was hit (N/S/E/W)
-   - Calculate exact hit position on wall
-   - Map to texture coordinates
-
-**8. Draw Vertical Line**
-   - Draw ceiling (top to draw_start)
-   - Draw textured wall (draw_start to draw_end)
-   - Draw floor (draw_end to bottom)
-   - Apply shading for Y-side walls
-
-**9. Repeat**
-   - Continue for next column until entire screen is filled
-
-**10. Display Image**
-   - Put the final rendered image to window
-
----
-
-## Texturing System
-
-### Overview
-
-Texturing gives life to walls. Instead of flat colors, each wall is mapped with an image (texture) to create realistic 3D visuals.
-
-### How It Works
-
-After a ray hits a wall:
-1. Determine **wall orientation** (North, South, East, West)
-2. Calculate **exact hit position** on the wall
-3. Map that position to a pixel inside the correct texture
-4. Render the textured slice for that screen column
-5. Apply shading for depth (darken East/West walls slightly)
-
-### Step-by-Step
-
-**1. Detect Wall Orientation**
-- Decide which texture to use based on the wall side hit
-
-**2. Calculate Wall Hit Position**
-- Vertical wall → `hit_x = player_y + perp_dist * ray_dir_y`
-- Horizontal wall → `hit_x = player_x + perp_dist * ray_dir_x`
-- Keep only the decimal part → maps to texture column
-
-**3. Map to Texture Coordinates**
-- `tex_x = int(hit_x * texture_width)`
-- For each pixel in the vertical slice:
-  - `tex_y = int((current_pixel - draw_start) / line_height * texture_height)`
-
-**4. Draw Textured Slice**
-- Copy pixel color from texture to screen
-- Repeat for every column
-
-**5. Apply Shading**
-- Darken walls depending on side (East/West) for depth
-
----
-
-## Rendering Flow
+<div align="center">
 
 ```
+ ██████╗██╗   ██╗██████╗ ██████╗ ██████╗
+██╔════╝██║   ██║██╔══██╗╚════██╗██╔══██╗
+██║     ██║   ██║██████╔╝ █████╔╝██║  ██║
+██║     ██║   ██║██╔══██╗ ╚═══██╗██║  ██║
+╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝
+ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝
+```
 
-Game Loop
-↓
-Handle Input (movement/rotation)
-↓
-Update Player Position
-↓
-Create New Image Buffer
-↓
-For Each Screen Column:
-├─ Initialize Ray
-├─ Run DDA Algorithm
-├─ Find Wall Hit
-├─ Calculate Distance
-├─ Compute Wall Height
-├─ Get Texture Coordinates
-└─ Draw Vertical Slice
-↓
-Display Image
-↓
-Repeat
+# Cub3D — Raycasting Engine
 
-````
+**A 3D maze exploration game inspired by Wolfenstein 3D**
+
+![C](image)
+![MiniLibX](https://img.shields.io/badge/graphics-MiniLibX-orange?style=flat-square)
+![42 Project](https://img.shields.io/badge/school-42-black?style=flat-square)
+
+</div>
 
 ---
 
-## Movement System
+## What Is This?
 
-### Controls
-- **W/S**: Move forward/backward
-- **A/D**: Strafe left/right
-- **←/→**: Rotate camera
-- **ESC**: Exit game
+Cub3D is a 3D maze renderer built entirely in C using the **raycasting** technique — the same algorithm that powered *Wolfenstein 3D* in 1992. A 2D grid map is transformed in real time into a first-person 3D perspective with textured walls, floor/ceiling colors, and smooth player movement.
 
-### Features
-- Smooth movement using direction vectors
-- Rotation using 2D rotation matrix
+No GPU. No 3D engine. Just math, rays, and pixels.
+
+---
+
+## Demo
+
+> *(Add a gameplay gif or screenshot here)*
+
+---
+
+## Features
+
+- Real-time raycasting renderer
+- Textured walls (North / South / East / West)
+- Configurable floor and ceiling colors
+- Smooth player movement and camera rotation
 - Collision detection with wall sliding
-- 8-point circle sampling for accurate collision
+- Custom `.cub` map format parser
 
 ---
 
-## Technical Details
-
-### Fish-Eye Correction
-Using perpendicular distance instead of Euclidean distance prevents the fish-eye distortion effect.
-
-### Wall Shading
-Y-side walls (East/West) are slightly darkened to provide depth perception.
-
-### Texture Mapping
-Each wall hit calculates:
-- Which texture to use (N/S/E/W)
-- X-coordinate on the texture
-- Y-coordinates for each pixel from top to bottom
-
----
-
-## Compilation
+## Quick Start
 
 ```bash
+# Clone and build
+git clone <your-repo-url>
+cd cub3d
 make
+
+# Run with a map
 ./cub3D maps/map.cub
-````
+```
+
+### Controls
+
+| Key | Action |
+|-----|--------|
+| `W / S` | Move forward / backward |
+| `A / D` | Strafe left / right |
+| `← / →` | Rotate camera |
+| `ESC` | Exit |
 
 ---
 
 ## Map Format
 
-Maps are defined in `.cub` files containing:
+Maps are plain-text `.cub` files with this structure:
 
-* Texture paths (NO, SO, WE, EA)
-* Floor and ceiling colors (F, C)
-* 2D map grid (0=empty, 1=wall, N/S/E/W=player start)
+```
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+WE ./textures/west.xpm
+EA ./textures/east.xpm
+
+F 220,100,0
+C 225,30,0
+
+        1111111111
+        1000000001
+        1011100001
+        1000110001
+  1111111001100001111
+  1000000000000000001
+  1000000000000000001
+  1111111111111111111
+```
+
+| Symbol | Meaning |
+|--------|---------|
+| `1` | Wall |
+| `0` | Empty floor |
+| `N S E W` | Player start position + orientation |
+| `NO SO WE EA` | Texture paths for each wall face |
+| `F` | Floor color (R,G,B) |
+| `C` | Ceiling color (R,G,B) |
 
 ---
 
-## Key Concepts for Evaluation
+## How Raycasting Works
 
-1. **One Ray Per Column**: Each screen column = one ray cast
-2. **DDA Algorithm**: Efficient grid traversal to find walls
-3. **Perpendicular Distance**: Prevents fish-eye distortion
-4. **Texture Mapping**: Correct texture coordinates for realistic walls
-5. **Collision Detection**: Prevents walking through walls
-6. **Performance**: Real-time rendering at playable frame rates
+For every vertical column on screen, one ray is cast from the player's position into the 2D map. When the ray hits a wall, we calculate how tall that wall slice should appear — closer walls are taller, distant walls are shorter. Repeat across all 800+ columns and the scene emerges.
+
+### The Pipeline
+
+```
+For each screen column x:
+│
+├─ 1. Compute ray direction
+│     Combine player direction + camera plane offset
+│
+├─ 2. Set up DDA variables
+│     map cell, step direction, side distances
+│
+├─ 3. Run DDA (Digital Differential Analysis)
+│     Advance ray grid-by-grid until wall hit
+│
+├─ 4. Calculate perpendicular distance
+│     Avoids fish-eye by using projected distance, not Euclidean
+│
+├─ 5. Determine wall height
+│     line_height = SCREEN_HEIGHT / perp_dist
+│
+├─ 6. Select texture
+│     Which face was hit? (N/S/E/W)
+│     Where on the wall? → texture X coordinate
+│
+└─ 7. Draw the column
+      Ceiling → Textured wall slice → Floor
+```
+
+### Key Concepts
+
+**DDA Algorithm**
+Rather than checking every point along a ray, DDA jumps directly to the next grid boundary — making it O(grid crossings) instead of O(ray length). This is what makes real-time raycasting possible.
+
+**Perpendicular Distance**
+Naively using the Euclidean distance to the wall hit point causes a fish-eye distortion — walls appear curved. The fix is to project the hit point back onto the player's camera plane and use *that* distance instead.
+
+```c
+// Side 0 = vertical wall hit, Side 1 = horizontal wall hit
+if (side == 0)
+    perp_dist = side_dist_x - delta_dist_x;
+else
+    perp_dist = side_dist_y - delta_dist_y;
+```
+
+**Texture Mapping**
+After a wall hit:
+1. Calculate the exact fractional position on the wall face
+2. Multiply by texture width → `tex_x`
+3. For each pixel in the vertical slice, interpolate → `tex_y`
+4. Sample the texture and draw
+
+**Depth Shading**
+East/West facing walls are drawn slightly darker than North/South walls. This simple trick adds a strong sense of depth without any additional computation.
 
 ---
 
@@ -224,27 +167,62 @@ Maps are defined in `.cub` files containing:
 
 ```
 cub3d/
+├── cub3d.c              # Entry point
+├── cub3d.h              # All structs and prototypes
+│
 ├── src/
-│   ├── draw.c          # Core raycasting
-│   ├── pixel.c         # Rendering helpers
-│   ├── moves.c         # Player movement
-│   ├── moves_utils.c   # Collision
-│   └── init_*.c        # Initialization
-├── cub3d.c
-│── cub3d.h         # Header file
+│   ├── draw.c           # Ray initialization, DDA, scene rendering
+│   ├── pixel.c          # Pixel and texture drawing utilities
+│   ├── moves.c          # Player movement and rotation
+│   ├── moves_utils.c    # Collision detection (8-point circle sampling)
+│   ├── init_game.c      # Window and image initialization
+│   ├── init_textures.c  # Texture loading
+│   ├── init_colors.c    # Floor/ceiling color setup
+│   └── free.c           # Memory cleanup
+│
 └── maps/
-    └── *.cub           # Map files
+    └── *.cub            # Map files
 ```
 
 ---
 
-**Note**: This README focuses on the raycasting, rendering, and texturing pipeline. Parsing documentation to be completed by teammate.
+## Technical Notes
+
+### Collision Detection
+Player collision uses 8 evenly-spaced sample points arranged in a circle around the player's position. Each point is checked against the map before movement is applied — this gives smooth wall sliding rather than stopping dead on contact.
+
+### Rotation
+Camera rotation uses a standard 2D rotation matrix:
 
 ```
+new_dir_x = dir_x * cos(angle) - dir_y * sin(angle)
+new_dir_y = dir_x * sin(angle) + dir_y * cos(angle)
+```
+
+The camera plane vector is rotated by the same amount to maintain the correct field of view.
+
+### Memory Management
+All heap-allocated resources (textures, images, map array) are tracked in the main game struct and freed in `free.c` on exit or error — including MiniLibX window and display resources.
 
 ---
 
-repo 🚀.  
+## Roadmap
 
-Do you want me to do that too?
-```
+- [ ] Minimap overlay
+- [ ] Animated sprites / enemies
+- [ ] Floor and ceiling textures
+- [ ] Mouse-look support
+- [ ] Door mechanics
+
+---
+
+## Authors
+
+| Contributor | Focus |
+|-------------|-------|
+| *Your name* | Raycasting, rendering, texturing, movement |
+| *Teammate* | Map parsing, validation |
+
+---
+
+> *Parsing documentation to be completed by teammate.*
