@@ -33,12 +33,6 @@ No GPU. No 3D engine. Just math, rays, and pixels.
 
 ---
 
-## Demo
-
-> *(Add a gameplay gif or screenshot here)*
-
----
-
 ## Features
 
 - Real-time raycasting renderer
