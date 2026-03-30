@@ -9,7 +9,7 @@
                             ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝
 ```
 
-# Cub3D — Raycasting Engine
+
 
 **A 3D maze exploration game inspired by Wolfenstein 3D**
 
