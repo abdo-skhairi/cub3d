@@ -1,5 +1,15 @@
 # Cub3D - Raycasting Engine
 
+<p align="center">
+  <img src="image.png" width="800"/>
+</p>
+
+<h1 align="center">Cub3D - Raycasting Engine</h1>
+
+<p align="center">
+  A 3D maze exploration game inspired by Wolfenstein 3D
+</p>
+
 A 3D maze exploration game using raycasting techniques, inspired by Wolfenstein 3D.
 
 ---
