@@ -1,7 +1,7 @@
 # Cub3D - Raycasting Engine
 
 <p align="center">
-  <img src="image.png" width="800"/>
+  <img src="image" width="800"/>
 </p>
 
 <h1 align="center">Cub3D - Raycasting Engine</h1>
