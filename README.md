@@ -1,3 +1,5 @@
+
+```md
 # Cub3D - Raycasting Engine
 
 <p align="center">
@@ -128,3 +130,121 @@ After a ray hits a wall:
 ---
 
 ## Rendering Flow
+
+```
+
+Game Loop
+↓
+Handle Input (movement/rotation)
+↓
+Update Player Position
+↓
+Create New Image Buffer
+↓
+For Each Screen Column:
+├─ Initialize Ray
+├─ Run DDA Algorithm
+├─ Find Wall Hit
+├─ Calculate Distance
+├─ Compute Wall Height
+├─ Get Texture Coordinates
+└─ Draw Vertical Slice
+↓
+Display Image
+↓
+Repeat
+
+````
+
+---
+
+## Movement System
+
+### Controls
+- **W/S**: Move forward/backward
+- **A/D**: Strafe left/right
+- **←/→**: Rotate camera
+- **ESC**: Exit game
+
+### Features
+- Smooth movement using direction vectors
+- Rotation using 2D rotation matrix
+- Collision detection with wall sliding
+- 8-point circle sampling for accurate collision
+
+---
+
+## Technical Details
+
+### Fish-Eye Correction
+Using perpendicular distance instead of Euclidean distance prevents the fish-eye distortion effect.
+
+### Wall Shading
+Y-side walls (East/West) are slightly darkened to provide depth perception.
+
+### Texture Mapping
+Each wall hit calculates:
+- Which texture to use (N/S/E/W)
+- X-coordinate on the texture
+- Y-coordinates for each pixel from top to bottom
+
+---
+
+## Compilation
+
+```bash
+make
+./cub3D maps/map.cub
+````
+
+---
+
+## Map Format
+
+Maps are defined in `.cub` files containing:
+
+* Texture paths (NO, SO, WE, EA)
+* Floor and ceiling colors (F, C)
+* 2D map grid (0=empty, 1=wall, N/S/E/W=player start)
+
+---
+
+## Key Concepts for Evaluation
+
+1. **One Ray Per Column**: Each screen column = one ray cast
+2. **DDA Algorithm**: Efficient grid traversal to find walls
+3. **Perpendicular Distance**: Prevents fish-eye distortion
+4. **Texture Mapping**: Correct texture coordinates for realistic walls
+5. **Collision Detection**: Prevents walking through walls
+6. **Performance**: Real-time rendering at playable frame rates
+
+---
+
+## Project Structure
+
+```
+cub3d/
+├── src/
+│   ├── draw.c          # Core raycasting
+│   ├── pixel.c         # Rendering helpers
+│   ├── moves.c         # Player movement
+│   ├── moves_utils.c   # Collision
+│   └── init_*.c        # Initialization
+├── cub3d.c
+│── cub3d.h         # Header file
+└── maps/
+    └── *.cub           # Map files
+```
+
+---
+
+**Note**: This README focuses on the raycasting, rendering, and texturing pipeline. Parsing documentation to be completed by teammate.
+
+```
+
+---
+
+repo 🚀.  
+
+Do you want me to do that too?
+```
