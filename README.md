@@ -218,9 +218,9 @@ All heap-allocated resources (textures, images, map array) are tracked in the ma
 
 | Contributor | Focus |
 |-------------|-------|
-| *Your name* | Raycasting, rendering, texturing, movement |
+| * Me * | Raycasting, rendering, texturing, movement |
 | *Teammate* | Map parsing, validation |
 
 ---
 
-> *Parsing documentation to be completed by teammate.*
+
